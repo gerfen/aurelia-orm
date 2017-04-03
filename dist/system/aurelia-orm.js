@@ -3,7 +3,7 @@
 System.register(['typer', 'aurelia-dependency-injection', 'aurelia-api', 'aurelia-metadata', 'aurelia-validation', 'aurelia-logging'], function (_export, _context) {
   "use strict";
 
-  var typer, inject, transient, Container, Config, metadata, Validator, ValidationRules, getLogger, _typeof, _dec, _class, _dec2, _class3, _class4, _temp, _dec3, _class5, _dec4, _class7, Repository, DefaultRepository, OrmMetadata, Metadata, Entity, EntityManager, logger;
+  var typer, inject, transient, Container, Config, metadata, Validator, ValidationRules, getLogger, _typeof, _dec, _class, _dec2, _class3, _class4, _temp, _dec3, _class5, _dec4, _class6, Repository, DefaultRepository, OrmMetadata, Metadata, Entity, EntityManager, logger;
 
   function _possibleConstructorReturn(self, call) {
     if (!self) {
@@ -611,14 +611,6 @@ System.register(['typer', 'aurelia-dependency-injection', 'aurelia-api', 'aureli
         function Entity() {
           
 
-          this.isNew = function isNew() {
-            var id = this.getId();
-            if (id !== undefined && id !== null && id === '00000000-0000-0000-0000-000000000000') {
-              return true;
-            }
-            return !this.getId();
-          };
-
           this.define('__meta', OrmMetadata.forTarget(this.constructor)).define('__cleanValues', {}, true);
         }
 
@@ -826,6 +818,14 @@ System.register(['typer', 'aurelia-dependency-injection', 'aurelia-api', 'aureli
           return !this.isClean();
         };
 
+        Entity.prototype.isNew = function isNew() {
+          var id = this.getId();
+          if (id !== undefined && id !== null && id === '00000000-0000-0000-0000-000000000000') {
+            return true;
+          }
+          return !this.getId();
+        };
+
         Entity.prototype.reset = function reset(shallow) {
           var _this8 = this;
 
@@ -977,7 +977,7 @@ System.register(['typer', 'aurelia-dependency-injection', 'aurelia-api', 'aureli
 
       _export('Entity', Entity);
 
-      _export('EntityManager', EntityManager = (_dec4 = inject(Container), _dec4(_class7 = function () {
+      _export('EntityManager', EntityManager = (_dec4 = inject(Container), _dec4(_class6 = function () {
         function EntityManager(container) {
           
 
@@ -1075,7 +1075,7 @@ System.register(['typer', 'aurelia-dependency-injection', 'aurelia-api', 'aureli
         };
 
         return EntityManager;
-      }()) || _class7));
+      }()) || _class6));
 
       _export('EntityManager', EntityManager);
 

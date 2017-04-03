@@ -1,4 +1,4 @@
-var _dec, _class, _dec2, _class3, _class4, _temp, _dec3, _class5, _dec4, _class7;
+var _dec, _class, _dec2, _class3, _class4, _temp, _dec3, _class5, _dec4, _class6;
 
 import typer from 'typer';
 import { inject, transient, Container } from 'aurelia-dependency-injection';
@@ -237,14 +237,6 @@ export let Metadata = (_temp = _class4 = class Metadata {
 
 export let Entity = (_dec3 = transient(), _dec3(_class5 = class Entity {
   constructor() {
-    this.isNew = function isNew() {
-      const id = this.getId();
-      if (id !== undefined && id !== null && id === '00000000-0000-0000-0000-000000000000') {
-        return true;
-      }
-      return !this.getId();
-    };
-
     this.define('__meta', OrmMetadata.forTarget(this.constructor)).define('__cleanValues', {}, true);
   }
 
@@ -422,6 +414,13 @@ export let Entity = (_dec3 = transient(), _dec3(_class5 = class Entity {
     return !this.isClean();
   }
 
+  isNew() {
+    let id = this.getId();
+    if (id !== undefined && id !== null && id === '00000000-0000-0000-0000-000000000000') {
+      return true;
+    }
+    return !this.getId();
+  }
   reset(shallow) {
     let pojo = {};
     let metadata = this.getMeta();
@@ -742,7 +741,7 @@ export function validation(ValidatorClass = Validator) {
   };
 }
 
-export let EntityManager = (_dec4 = inject(Container), _dec4(_class7 = class EntityManager {
+export let EntityManager = (_dec4 = inject(Container), _dec4(_class6 = class EntityManager {
   constructor(container) {
     this.repositories = {};
     this.entities = {};
@@ -836,7 +835,7 @@ export let EntityManager = (_dec4 = inject(Container), _dec4(_class7 = class Ent
 
     return instance.setResource(resource).setRepository(this.getRepository(resource));
   }
-}) || _class7);
+}) || _class6);
 
 export function validatedResource(resourceName, ValidatorClass) {
   return function (target, propertyName) {
