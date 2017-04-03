@@ -367,7 +367,7 @@ export declare class Entity {
      *
      * @return {boolean}
      */
-  isNew(): any;
+  isNew: any;
   
   /**
      * Resets the entity to the clean state

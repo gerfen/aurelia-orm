@@ -331,10 +331,13 @@ export class Entity {
    *
    * @return {boolean}
    */
-  isNew() {
-    return !this.getId();
-  }
-
+  isNew = function isNew() {
+      const id = this.getId();
+      if (id !== undefined && id !== null && id === '00000000-0000-0000-0000-000000000000') {
+        return true
+      }
+      return !this.getId();
+    };
   /**
    * Resets the entity to the clean state
    *

@@ -59,7 +59,7 @@ define(['exports', 'typer', 'aurelia-dependency-injection', 'aurelia-api', 'aure
 
   
 
-  var _dec, _class, _dec2, _class3, _class4, _temp, _dec3, _class5, _dec4, _class6;
+  var _dec, _class, _dec2, _class3, _class4, _temp, _dec3, _class5, _dec4, _class7;
 
   var Repository = exports.Repository = (_dec = (0, _aureliaDependencyInjection.inject)(_aureliaApi.Config), _dec(_class = function () {
     function Repository(clientConfig) {
@@ -321,6 +321,14 @@ define(['exports', 'typer', 'aurelia-dependency-injection', 'aurelia-api', 'aure
     function Entity() {
       
 
+      this.isNew = function isNew() {
+        var id = this.getId();
+        if (id !== undefined && id !== null && id === '00000000-0000-0000-0000-000000000000') {
+          return true;
+        }
+        return !this.getId();
+      };
+
       this.define('__meta', OrmMetadata.forTarget(this.constructor)).define('__cleanValues', {}, true);
     }
 
@@ -526,10 +534,6 @@ define(['exports', 'typer', 'aurelia-dependency-injection', 'aurelia-api', 'aure
 
     Entity.prototype.isDirty = function isDirty() {
       return !this.isClean();
-    };
-
-    Entity.prototype.isNew = function isNew() {
-      return !this.getId();
     };
 
     Entity.prototype.reset = function reset(shallow) {
@@ -858,7 +862,7 @@ define(['exports', 'typer', 'aurelia-dependency-injection', 'aurelia-api', 'aure
     };
   }
 
-  var EntityManager = exports.EntityManager = (_dec4 = (0, _aureliaDependencyInjection.inject)(_aureliaDependencyInjection.Container), _dec4(_class6 = function () {
+  var EntityManager = exports.EntityManager = (_dec4 = (0, _aureliaDependencyInjection.inject)(_aureliaDependencyInjection.Container), _dec4(_class7 = function () {
     function EntityManager(container) {
       
 
@@ -956,7 +960,7 @@ define(['exports', 'typer', 'aurelia-dependency-injection', 'aurelia-api', 'aure
     };
 
     return EntityManager;
-  }()) || _class6);
+  }()) || _class7);
   function validatedResource(resourceName, ValidatorClass) {
     return function (target, propertyName) {
       resource(resourceName)(target);

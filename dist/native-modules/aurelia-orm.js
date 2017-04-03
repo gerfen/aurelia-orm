@@ -5,7 +5,7 @@ exports.logger = exports.EntityManager = exports.Entity = exports.Metadata = exp
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _dec, _class, _dec2, _class3, _class4, _temp, _dec3, _class5, _dec4, _class6;
+var _dec, _class, _dec2, _class3, _class4, _temp, _dec3, _class5, _dec4, _class7;
 
 exports.idProperty = idProperty;
 exports.name = name;
@@ -303,6 +303,14 @@ var Entity = exports.Entity = (_dec3 = (0, _aureliaDependencyInjection.transient
   function Entity() {
     
 
+    this.isNew = function isNew() {
+      var id = this.getId();
+      if (id !== undefined && id !== null && id === '00000000-0000-0000-0000-000000000000') {
+        return true;
+      }
+      return !this.getId();
+    };
+
     this.define('__meta', OrmMetadata.forTarget(this.constructor)).define('__cleanValues', {}, true);
   }
 
@@ -508,10 +516,6 @@ var Entity = exports.Entity = (_dec3 = (0, _aureliaDependencyInjection.transient
 
   Entity.prototype.isDirty = function isDirty() {
     return !this.isClean();
-  };
-
-  Entity.prototype.isNew = function isNew() {
-    return !this.getId();
   };
 
   Entity.prototype.reset = function reset(shallow) {
@@ -840,7 +844,7 @@ function validation() {
   };
 }
 
-var EntityManager = exports.EntityManager = (_dec4 = (0, _aureliaDependencyInjection.inject)(_aureliaDependencyInjection.Container), _dec4(_class6 = function () {
+var EntityManager = exports.EntityManager = (_dec4 = (0, _aureliaDependencyInjection.inject)(_aureliaDependencyInjection.Container), _dec4(_class7 = function () {
   function EntityManager(container) {
     
 
@@ -938,7 +942,7 @@ var EntityManager = exports.EntityManager = (_dec4 = (0, _aureliaDependencyInjec
   };
 
   return EntityManager;
-}()) || _class6);
+}()) || _class7);
 function validatedResource(resourceName, ValidatorClass) {
   return function (target, propertyName) {
     resource(resourceName)(target);

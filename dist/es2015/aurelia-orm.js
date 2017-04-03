@@ -1,4 +1,4 @@
-var _dec, _class, _dec2, _class3, _class4, _temp, _dec3, _class5, _dec4, _class6;
+var _dec, _class, _dec2, _class3, _class4, _temp, _dec3, _class5, _dec4, _class7;
 
 import typer from 'typer';
 import { inject, transient, Container } from 'aurelia-dependency-injection';
@@ -19,7 +19,7 @@ export let Repository = (_dec = inject(Config), _dec(_class = class Repository {
       this.transport = this.clientConfig.getEndpoint(this.getMeta().fetch('endpoint'));
 
       if (!this.transport) {
-        throw new Error(`No transport found for '${ this.getMeta().fetch('endpoint') || 'default' }'.`);
+        throw new Error(`No transport found for '${this.getMeta().fetch('endpoint') || 'default'}'.`);
       }
     }
 
@@ -237,6 +237,14 @@ export let Metadata = (_temp = _class4 = class Metadata {
 
 export let Entity = (_dec3 = transient(), _dec3(_class5 = class Entity {
   constructor() {
+    this.isNew = function isNew() {
+      const id = this.getId();
+      if (id !== undefined && id !== null && id === '00000000-0000-0000-0000-000000000000') {
+        return true;
+      }
+      return !this.getId();
+    };
+
     this.define('__meta', OrmMetadata.forTarget(this.constructor)).define('__cleanValues', {}, true);
   }
 
@@ -412,10 +420,6 @@ export let Entity = (_dec3 = transient(), _dec3(_class5 = class Entity {
 
   isDirty() {
     return !this.isClean();
-  }
-
-  isNew() {
-    return !this.getId();
   }
 
   reset(shallow) {
@@ -738,7 +742,7 @@ export function validation(ValidatorClass = Validator) {
   };
 }
 
-export let EntityManager = (_dec4 = inject(Container), _dec4(_class6 = class EntityManager {
+export let EntityManager = (_dec4 = inject(Container), _dec4(_class7 = class EntityManager {
   constructor(container) {
     this.repositories = {};
     this.entities = {};
@@ -832,7 +836,7 @@ export let EntityManager = (_dec4 = inject(Container), _dec4(_class6 = class Ent
 
     return instance.setResource(resource).setRepository(this.getRepository(resource));
   }
-}) || _class6);
+}) || _class7);
 
 export function validatedResource(resourceName, ValidatorClass) {
   return function (target, propertyName) {
@@ -879,7 +883,7 @@ export function ensurePropertyIsConfigurable(target, propertyName, descriptor) {
     descriptor.configurable = true;
 
     if (!Reflect.defineProperty(target, propertyName, descriptor)) {
-      logger.warn(`Cannot make configurable property '${ propertyName }' of object`, target);
+      logger.warn(`Cannot make configurable property '${propertyName}' of object`, target);
     }
   }
 }
